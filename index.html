@@ -24,9 +24,12 @@ h1 small{display:block;color:var(--sub);font-weight:400;font-size:.85rem}
 .bar{display:flex;height:10px;border-radius:6px;overflow:hidden;background:#ffffff26;margin:18px 0 6px}
 .bar i{display:block;height:100%}
 .legend{display:flex;justify-content:space-between;font-size:.78rem;opacity:.8}
+.todaybox{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:14px;padding:12px 14px;border-radius:12px;background:#ffffff1a}
+.todaybox span{font-size:.9rem;opacity:.85}.todaybox b{font-size:1.5rem;font-weight:900;color:#fff;letter-spacing:-.01em}.todaybox b.neg{color:#ff8a8a}
 .card{background:var(--card);border-radius:16px;padding:18px;margin-bottom:14px;border:1px solid var(--line)}
 h2{font-size:1rem;margin:0 0 12px}
 label{display:block;font-size:.85rem;color:var(--sub);margin-bottom:4px}
+label+input{margin-bottom:10px}
 input{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
 input:focus-visible,button:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 .row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin-bottom:8px}
@@ -36,33 +39,86 @@ button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--lin
 .chips button{padding:4px 10px;font-size:.82rem;border-radius:99px}
 dl{display:grid;grid-template-columns:1fr auto;gap:6px 12px;margin:0;font-size:.92rem}
 dt{color:var(--sub)}dd{margin:0;text-align:right;font-weight:500}
-.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}.modes button{padding:9px 4px;font-size:.85rem}.modes button.on{background:var(--hero);color:var(--acc);border-color:var(--hero);font-weight:700}.sub{font-size:.82rem;color:var(--sub);margin:0}.today{display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;font-size:.92rem}.today b{font-size:1.1rem}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}.modes button{padding:9px 4px;font-size:.85rem}.modes button.on{background:var(--hero);color:var(--acc);border-color:var(--hero);font-weight:700}
+.sub{font-size:.82rem;color:var(--sub);margin:0}
+.today{display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;font-size:.92rem}.today b{font-size:1.1rem}
+.types{display:grid;grid-template-columns:1fr 1fr;gap:6px}.types button{padding:11px 6px;font-size:.9rem;line-height:1.35}.types button small{display:block;font-weight:400;font-size:.74rem;opacity:.8}.types button.on{background:var(--hero);color:var(--acc);border-color:var(--hero);font-weight:700}
+.keep{display:flex;justify-content:space-between;font-size:.92rem}.keep b{color:var(--ok)}
 .note{font-size:.8rem;color:var(--sub);margin-top:14px}
+/* calendar */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal .wd{text-align:center;font-size:.75rem;color:var(--sub);padding:2px 0}
+.day{padding:4px 2px;min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:1px;border-radius:10px;background:var(--bg);font-size:.8rem;line-height:1.25}
+.day .dn{font-weight:700}
+.day .da{font-size:.66rem;word-break:keep-all}
+.day .dm{font-size:.62rem;color:var(--sub)}
+.day.ok{background:rgba(26,138,90,.14);border-color:rgba(26,138,90,.55)}
+.day.ok .da{color:var(--ok);font-weight:700}
+.day.over{background:rgba(201,58,58,.14);border-color:rgba(201,58,58,.6)}
+.day.over .da{color:var(--bad);font-weight:700}
+.day.zero .da{color:var(--sub)}
+.day.today{box-shadow:0 0 0 2px var(--acc)}
+.day:disabled{opacity:.35;cursor:default}
+.cleg{display:flex;gap:14px;flex-wrap:wrap;font-size:.75rem;color:var(--sub);margin-top:10px}
+.cleg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+/* entries + dialog */
+.ents{list-style:none;margin:8px 0;padding:0}
+.ents li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.ents .ea{font-weight:700}.ents .em{color:var(--sub);word-break:break-all}.ents button{padding:3px 8px;font-size:.78rem}
+.empty{color:var(--sub);font-size:.85rem;margin:8px 0}
+.addf{display:grid;grid-template-columns:1fr 1.5fr auto;gap:6px;margin-top:8px}
+.addf input{margin:0}
+.addf button{padding:0 14px;background:var(--hero);color:var(--acc);border-color:var(--hero);font-weight:700}
+.mchips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.mchips button{padding:3px 10px;font-size:.78rem;border-radius:99px}
+dialog{border:none;border-radius:18px;padding:0;max-width:480px;width:calc(100% - 24px);background:var(--card);color:var(--ink)}
+dialog::backdrop{background:rgba(0,0,0,.55)}
+.dlg{padding:18px}
+.dlg-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.dlg-h h2{margin:0;font-size:1.1rem}
+.close{padding:6px 12px}
 </style>
 </head>
 <body>
 <main>
-  <h1>Smart-Budget<small>월 1회 설정하면, 매일 쓸 수 있는 금액이 보여요</small></h1>
+  <h1>Smart-Budget<small>월 1회 설정하면, 하루 평균 쓸 수 있는 금액이 보여요</small></h1>
 
   <section class="hero" aria-live="polite">
     <p id="dateLine"></p>
     <div class="big" id="daily">0원</div>
+    <div class="todaybox"><span>오늘 쓸 수 있는 돈</span><b id="todayAmt">—</b></div>
     <p id="advice" class="msg"></p>
     <div class="bar" aria-hidden="true"><i id="bFixed" style="background:#7d93c4"></i><i id="bSave" style="background:#5fd0a0"></i><i id="bFree" style="background:var(--acc)"></i></div>
     <div class="legend"><span id="lgFixed"></span><span id="lgSave"></span><span id="lgFree"></span></div>
   </section>
 
   <section class="card">
-    <h2>이번 달 총 수입 (예산)</h2>
-    <label for="income">월 수입 · 용돈 포함, 원</label>
+    <h2>어떤 돈으로 한 달을 보낼까요?</h2>
+    <div class="types" id="types" role="group" aria-label="돈의 종류">
+      <button type="button" data-t="income">1. 월급·용돈으로 살기<small>매달 들어오는 돈</small></button>
+      <button type="button" data-t="pool">2. 모아 둔 돈으로 살기<small>한 번에 모은 돈에서 쓰기</small></button>
+    </div>
+  </section>
+
+  <section class="card" id="incomeCard">
+    <h2>이번 달 수입</h2>
+    <label for="income">월급·용돈·알바비 합계, 원 · 수입이 없으면 비워 두세요</label>
     <input id="income" inputmode="numeric" placeholder="예: 2,500,000" autocomplete="off">
   </section>
 
-  <section class="card">
-    <h2>이번 달 저축·비상금 목표</h2>
-    <label for="saving">먼저 떼어 둘 금액, 원</label>
+  <section class="card" id="saveCard">
+    <h2>이번 달 저축 목표</h2>
+    <label for="saving">수입에서 먼저 떼어 모아 둘 금액, 원 · 모아 둔 돈에 더해져요</label>
     <input id="saving" inputmode="numeric" placeholder="예: 300,000" autocomplete="off">
     <button class="add" id="pct20" type="button">수입의 20%로 자동 설정</button>
+  </section>
+
+  <section class="card" id="poolCard" hidden>
+    <h2>모아 둔 돈</h2>
+    <label for="pool">지금까지 모아 둔 돈 전체, 원</label>
+    <input id="pool" inputmode="numeric" placeholder="예: 1,000,000" autocomplete="off">
+    <label for="draw">이번 달에 모아 둔 돈에서 꺼내 쓸 금액, 원</label>
+    <input id="draw" inputmode="numeric" placeholder="예: 300,000" autocomplete="off">
+    <div class="keep"><span>꺼내지 않고 남겨 두는 돈</span><b id="keepAmt">—</b></div>
   </section>
 
   <section class="card">
@@ -77,10 +133,16 @@ dt{color:var(--sub)}dd{margin:0;text-align:right;font-weight:500}
 
   <section class="card">
     <h2>오늘 쓴 금액</h2>
-    <label for="spent">오늘 쓴 돈의 합계, 원 · 기록하지 않은 날은 0원으로 계산돼요</label>
-    <input id="spent" inputmode="numeric" placeholder="예: 8,500" autocomplete="off">
-    <div class="today"><span id="restLbl">남은 한도</span><b id="rest"></b></div>
+    <div id="todayEd"></div>
+    <div class="today"><span>오늘 남은 한도</span><b id="rest"></b></div>
     <div class="today"><span>이번 달 누적 절약 (비상금)</span><b id="eSaved"></b></div>
+  </section>
+
+  <section class="card">
+    <h2 id="calTitle">이번 달 달력</h2>
+    <div class="cal" id="cal"></div>
+    <div class="cleg"><span><i style="background:rgba(26,138,90,.5)"></i>한도 이내</span><span><i style="background:rgba(201,58,58,.55)"></i>한도 초과 (▲)</span><span>✎ 메모 있음</span></div>
+    <p class="sub" style="margin-top:8px">날짜를 누르면 그날의 지출과 메모를 보고 고칠 수 있어요.</p>
   </section>
 
   <section class="card">
@@ -93,53 +155,164 @@ dt{color:var(--sub)}dd{margin:0;text-align:right;font-weight:500}
   <section class="card">
     <h2>계산 내역</h2>
     <dl>
-      <dt>총 수입</dt><dd id="rIncome"></dd>
+      <dt id="tIncome">이번 달 수입</dt><dd id="rIncome"></dd>
+      <dt id="tDraw">모아 둔 돈에서 꺼낼 금액</dt><dd id="rDraw"></dd>
       <dt>고정 지출 합계</dt><dd id="rFixed"></dd>
-      <dt>목표 저축액</dt><dd id="rSave"></dd>
-      <dt>누적 절약액 (비상금)</dt><dd id="rE"></dd>
+      <dt id="tSave">이번 달 저축 목표</dt><dd id="rSave"></dd>
       <dt>쓸 수 있는 돈</dt><dd id="rFree"></dd>
+      <dt>이번 달 전체 일수</dt><dd id="rN"></dd>
       <dt>이번 달 남은 일수 (오늘 포함)</dt><dd id="rDays"></dd>
+      <dt>누적 절약액 (비상금)</dt><dd id="rE"></dd>
+      <dt id="tPoolEnd">모이는 돈 (지금까지 기준)</dt><dd id="rPoolEnd"></dd>
     </dl>
-    <p class="note">(총 수입 − 고정 지출 − 목표 저축액) ÷ 남은 일수로 계산하고, 어제까지 아낀 돈은 선택한 방식대로 이월돼요. 저축을 먼저 떼어 두기 때문에 남은 돈을 다 쓰지 않아요. 입력한 내용은 이 기기의 브라우저에만 저장돼요.</p>
+    <p class="note" id="calcNote"></p>
   </section>
 </main>
+
+<dialog id="dlg" aria-labelledby="dlgTitle">
+  <div class="dlg">
+    <div class="dlg-h"><h2 id="dlgTitle"></h2><button type="button" class="close" id="dlgClose">닫기</button></div>
+    <p class="sub" id="dlgSub"></p>
+    <div id="dlgEd"></div>
+  </div>
+</dialog>
 
 <script>
 const $ = id => document.getElementById(id);
 const won = n => Math.round(n).toLocaleString('ko-KR') + '원';
 const num = s => Number(String(s).replace(/[^\d]/g, '')) || 0;
 const fmtInput = el => { const v = num(el.value); el.value = v ? v.toLocaleString('ko-KR') : ''; };
+const pad = n => String(n).padStart(2, '0');
+const daysIn = t => new Date(t.getFullYear(), t.getMonth() + 1, 0).getDate();
 const PRESETS = ['월세', '통신비', '구독료', '교통비', '보험료', '대출 상환'];
+const MEMO_CHIPS = ['식비', '카페', '교통', '쇼핑', '여가', '기타'];
 const KEY = 'smart-budget-v1';
-let state = { income: '', saving: '', mode: 'half', spent: {}, since: '', items: [{ name: '월세', amount: '' }, { name: '통신비', amount: '' }, { name: '구독료', amount: '' }] };
+let state = { type: 'income', income: '', pool: '', draw: '', saving: '', mode: 'half', entries: {}, since: '', items: [{ name: '월세', amount: '' }, { name: '통신비', amount: '' }, { name: '구독료', amount: '' }] };
 
-try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && Array.isArray(s.items)) state = Object.assign({ saving: '', mode: 'half', spent: {}, since: '' }, s); } catch (e) {}
+try {
+  const s = JSON.parse(localStorage.getItem(KEY));
+  if (s && Array.isArray(s.items)) {
+    state = Object.assign({ type: '', income: '', pool: '', draw: '', saving: '', mode: 'half', entries: {}, since: '' }, s);
+    // 이전 버전 데이터 옮기기: '모아 둔 돈에서 쓰기' 모드, 하루 총액 기록
+    if (s.type === 'pool') { state.pool = s.income || ''; state.draw = s.budget || ''; state.income = ''; state.saving = ''; }
+    if (s.spent) for (const k in s.spent) { const v = num(s.spent[k]); if (v && !state.entries[k]) state.entries[k] = [{ a: v, m: '' }]; }
+    delete state.budget; delete state.spent;
+    if (state.type !== 'pool' && state.type !== 'income') state.type = (!num(state.income) && (num(state.pool) || num(state.draw))) ? 'pool' : 'income';
+  }
+} catch (e) {}
 function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
 
-const key = d => { const t = new Date(); return `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`; };
-(function () { const t = new Date(); if (!state.since || state.since.slice(0, 7) !== key(1).slice(0, 7)) state.since = key(t.getDate()); })();
+const ym = () => { const t = new Date(); return `${t.getFullYear()}-${pad(t.getMonth() + 1)}`; };
+const key = d => `${ym()}-${pad(d)}`;
+const spentOf = k => (state.entries[k] || []).reduce((s, e) => s + e.a, 0);
+(function () { const t = new Date(); if (!state.since || state.since.slice(0, 7) !== ym()) state.since = key(t.getDate()); })();
+
 const MODES = {
   half: ['반반 이월: 아낀 돈의 절반은 남은 날 한도에 보태고, 절반은 비상금으로 쌓아요.', .5],
   save: ['짠테크: 아낀 돈은 전부 비상금으로 쌓아요. 하루 한도는 그대로예요.', 1],
   flex: ['플렉스: 아낀 돈은 전부 남은 날 한도에 더해져요.', 0]
 };
+
 function simulate(F) {
-  const t = new Date(), N = new Date(t.getFullYear(), t.getMonth() + 1, 0).getDate(), td = t.getDate();
-  const since = Math.min(+state.since.split('-')[2] || td, td), frac = MODES[state.mode][1];
-  let R = F, E = 0;
-  for (let d = since; d < td; d++) {
-    const lim = R / (N - d + 1), sp = num(state.spent[key(d)]);
+  const t = new Date(), N = daysIn(t), td = t.getDate();
+  let start = Math.min(+state.since.split('-')[2] || td, td);
+  for (let d = 1; d < start; d++) if ((state.entries[key(d)] || []).length) { start = d; break; }
+  const frac = MODES[state.mode][1];
+  let R = F, E = 0; const days = {};
+  for (let d = start; d < td; d++) {
+    const lim = R / (N - d + 1), sp = spentOf(key(d));
+    days[d] = { lim, sp };
     const moved = Math.max(lim - sp, 0) * frac;
     R -= sp + moved; E += moved;
   }
-  const limit = R / (N - td + 1), spent = num(state.spent[key(td)]);
-  return { limit, E, spent, rest: limit - spent };
+  const limit = R / (N - td + 1), spent = spentOf(key(td));
+  days[td] = { lim: limit, sp: spent };
+  return { limit, E, spent, rest: limit - spent, days, start };
 }
-function daysLeft() {
-  const t = new Date(), last = new Date(t.getFullYear(), t.getMonth() + 1, 0).getDate();
-  return last - t.getDate() + 1;
+const daysLeft = () => { const t = new Date(); return daysIn(t) - t.getDate() + 1; };
+
+/* ---------- 지출 기록(금액 + 메모) 편집기 ---------- */
+let focusTag = null, lastS = null, dlgDay = null;
+function editor(root, dk, tag) {
+  root.innerHTML = '';
+  const list = state.entries[dk] || [];
+  if (!list.length) {
+    const p = document.createElement('p'); p.className = 'empty'; p.textContent = '아직 기록이 없어요. 쓴 금액과 메모를 적어 보세요.'; root.appendChild(p);
+  } else {
+    const ul = document.createElement('ul'); ul.className = 'ents';
+    list.forEach((e, i) => {
+      const li = document.createElement('li');
+      const a = document.createElement('span'); a.className = 'ea'; a.textContent = won(e.a);
+      const m = document.createElement('span'); m.className = 'em'; m.textContent = e.m || '메모 없음'; if (!e.m) m.style.opacity = '.5';
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = '삭제'; b.setAttribute('aria-label', `${won(e.a)} 기록 삭제`);
+      b.onclick = () => { list.splice(i, 1); if (!list.length) delete state.entries[dk]; update(); };
+      li.append(a, m, b); ul.appendChild(li);
+    });
+    root.appendChild(ul);
+  }
+  const f = document.createElement('div'); f.className = 'addf';
+  const a = document.createElement('input'); a.inputMode = 'numeric'; a.placeholder = '금액'; a.setAttribute('aria-label', '쓴 금액'); a.autocomplete = 'off';
+  const m = document.createElement('input'); m.placeholder = '메모 (예: 점심)'; m.maxLength = 40; m.setAttribute('aria-label', '메모'); m.autocomplete = 'off';
+  const b = document.createElement('button'); b.type = 'button'; b.textContent = '추가';
+  const add = () => {
+    const v = num(a.value); if (!v) { a.focus(); return; }
+    (state.entries[dk] = state.entries[dk] || []).push({ a: v, m: m.value.trim() });
+    focusTag = tag; update();
+  };
+  a.oninput = () => fmtInput(a);
+  a.onkeydown = m.onkeydown = e => { if (e.key === 'Enter') add(); };
+  b.onclick = add;
+  f.append(a, m, b); root.appendChild(f);
+  const mc = document.createElement('div'); mc.className = 'mchips';
+  MEMO_CHIPS.forEach(c => { const x = document.createElement('button'); x.type = 'button'; x.textContent = c; x.onclick = () => { m.value = c + ' '; m.focus(); }; mc.appendChild(x); });
+  root.appendChild(mc);
+  if (focusTag === tag) { a.focus(); focusTag = null; }
 }
 
+/* ---------- 달력 ---------- */
+function renderCal(S) {
+  const t = new Date(), mo = t.getMonth(), N = daysIn(t), td = t.getDate(), first = new Date(t.getFullYear(), mo, 1).getDay();
+  $('calTitle').textContent = `${mo + 1}월 달력`;
+  const g = $('cal'); g.innerHTML = '';
+  ['일', '월', '화', '수', '목', '금', '토'].forEach(w => { const s = document.createElement('div'); s.className = 'wd'; s.textContent = w; g.appendChild(s); });
+  for (let i = 0; i < first; i++) g.appendChild(document.createElement('div'));
+  for (let d = 1; d <= N; d++) {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'day';
+    const sp = spentOf(key(d)), ents = state.entries[key(d)] || [], info = S.days[d];
+    const dn = document.createElement('span'); dn.className = 'dn'; dn.textContent = d; b.appendChild(dn);
+    let label = `${mo + 1}월 ${d}일`;
+    if (d > td) { b.disabled = true; }
+    else {
+      if (sp > 0) {
+        const over = info && sp > info.lim + 0.5;
+        b.classList.add(over ? 'over' : 'ok');
+        const da = document.createElement('span'); da.className = 'da'; da.textContent = (over ? '▲' : '') + sp.toLocaleString('ko-KR'); b.appendChild(da);
+        label += `, ${won(sp)} 사용${over ? ', 한도 초과' : ''}`;
+      } else if (info && d < td) {
+        b.classList.add('zero');
+        const da = document.createElement('span'); da.className = 'da'; da.textContent = '0'; b.appendChild(da);
+      }
+      if (ents.some(e => e.m)) { const dm = document.createElement('span'); dm.className = 'dm'; dm.textContent = '✎'; b.appendChild(dm); label += ', 메모 있음'; }
+      b.onclick = () => openDay(d);
+    }
+    if (d === td) { b.classList.add('today'); label += ', 오늘'; }
+    b.setAttribute('aria-label', label);
+    g.appendChild(b);
+  }
+}
+function openDay(d) { dlgDay = d; renderDlg(); if (!$('dlg').open) $('dlg').showModal(); }
+function renderDlg() {
+  if (dlgDay == null || !lastS) return;
+  const t = new Date(), k = key(dlgDay), sp = spentOf(k), info = lastS.days[dlgDay];
+  $('dlgTitle').textContent = `${t.getMonth() + 1}월 ${dlgDay}일`;
+  $('dlgSub').textContent = (info ? `그날 한도 ${won(info.lim)} · ` : '') + `쓴 돈 ${won(sp)}` + (info && sp > info.lim + 0.5 ? ' (한도 초과)' : '');
+  editor($('dlgEd'), k, 'dlg');
+}
+$('dlgClose').onclick = () => $('dlg').close();
+$('dlg').addEventListener('click', e => { if (e.target === $('dlg')) $('dlg').close(); });
+$('dlg').addEventListener('close', () => { dlgDay = null; });
+
+/* ---------- 고정 지출 ---------- */
 function renderRows() {
   const box = $('rows'); box.innerHTML = '';
   state.items.forEach((it, i) => {
@@ -154,53 +327,86 @@ function renderRows() {
   });
 }
 
+/* ---------- 계산과 화면 ---------- */
 function update() {
-  const income = num(state.income);
+  const isPool = state.type === 'pool';
+  const income = isPool ? 0 : num(state.income), saving = isPool ? 0 : num(state.saving);
+  const pool = num(state.pool), draw = isPool ? num(state.draw) : 0;
+  $('incomeCard').hidden = isPool; $('saveCard').hidden = isPool; $('poolCard').hidden = !isPool;
+  const vis = (ids, on) => ids.forEach(i => { $(i).style.display = on ? '' : 'none'; });
+  vis(['tIncome', 'rIncome', 'tSave', 'rSave'], !isPool); vis(['tDraw', 'rDraw'], isPool);
+  document.querySelectorAll('#types button').forEach(b => b.classList.toggle('on', b.dataset.t === state.type));
   const fixed = state.items.reduce((s, x) => s + num(x.amount), 0);
-  const saving = num(state.saving);
-  const free = income - fixed - saving, days = daysLeft();
-  const S = simulate(free), daily = S.limit;
+  const total = income + draw, has = total > 0;
+  const free = total - fixed - saving, days = daysLeft();
+  const S = simulate(free); lastS = S;
+  const t = new Date(), N = daysIn(t), base = free / N;
+  $('dateLine').textContent = `${t.getMonth() + 1}월 ${t.getDate()}일 · 이번 달 하루 평균 쓸 수 있는 금액`;
   const el = $('daily');
-  const t = new Date();
-  $('dateLine').textContent = `${t.getMonth() + 1}월 ${t.getDate()}일 · 오늘 하루 권장 지출액`;
-  el.textContent = income ? (daily < 0 ? '-' : '') + won(Math.abs(daily)) : '—';
-  el.classList.toggle('neg', daily < 0);
-  let m = '수입을 입력하면 오늘 쓸 수 있는 금액이 계산돼요.';
-  if (income) {
-    if (free < 0) m = `고정 지출과 저축 목표를 합치면 수입보다 ${won(-free)} 많아요. 저축 목표나 지출 항목을 조정해 보세요.`;
-    else if (fixed / income > 0.6) m = '고정 지출이 수입의 60%를 넘어요. 구독·통신 요금부터 점검해 보세요.';
-    else m = saving ? `저축 ${won(saving)}은 이미 챙겼어요. 오늘 이 금액 안에서 쓰면 월말까지 ${days}일을 무리 없이 보낼 수 있어요.` : `오늘 이 금액 안에서 쓰면 월말까지 무리 없어요. 저축 목표를 먼저 정하면 더 든든해요.`;
+  el.textContent = has ? (base < 0 ? '-' : '') + won(Math.abs(base)) : '—';
+  el.classList.toggle('neg', base < 0);
+  const ta = $('todayAmt');
+  ta.textContent = has ? (S.rest < 0 ? won(-S.rest) + ' 초과' : won(S.rest)) : '—';
+  ta.classList.toggle('neg', S.rest < 0);
+
+  let m = isPool ? '모아 둔 돈과 이번 달에 꺼내 쓸 금액을 입력하면 하루 평균 쓸 수 있는 금액이 계산돼요.' : '이번 달 수입을 입력하면 하루 평균 쓸 수 있는 금액이 계산돼요.';
+  if (has) {
+    if (draw > pool) m = `모아 둔 돈(${won(pool)})보다 ${won(draw - pool)} 더 꺼내려고 해요. 꺼낼 금액이나 모아 둔 돈을 확인해 보세요.`;
+    else if (free < 0) m = `고정 지출과 저축 목표를 합치면 쓸 수 있는 돈보다 ${won(-free)} 많아요. 저축 목표나 지출 항목을 조정해 보세요.`;
+    else if (fixed / total > 0.6) m = '고정 지출이 쓸 수 있는 돈의 60%를 넘어요. 구독·통신 요금부터 점검해 보세요.';
+    else if (base > 0 && S.limit > base * 1.5 && S.start > 1) m = '오늘 한도가 하루 기본 금액보다 커요. 이번 달 앞쪽에 쓴 돈을 달력에 기록하면 더 정확해져요.';
+    else {
+      const parts = [];
+      if (saving) parts.push(`저축 ${won(saving)}은 챙겼고`);
+      if (pool && pool - draw > 0) parts.push(`모아 둔 돈 ${won(pool - draw)}은 건드리지 않고`);
+      m = (parts.length ? parts.join(' ') + ' ' : '') + `하루 평균 이 금액 안에서 쓰면 월말까지 ${days}일을 무리 없이 보낼 수 있어요.`;
+    }
   }
   $('advice').textContent = m;
-  const fp = income ? Math.min(100, fixed / income * 100) : 0;
-  const sp = income ? Math.min(100 - fp, saving / income * 100) : 0;
+
+  const fp = has ? Math.min(100, fixed / total * 100) : 0;
+  const sp = has ? Math.min(100 - fp, saving / total * 100) : 0;
   $('bFixed').style.width = fp + '%';
   $('bSave').style.width = sp + '%';
-  $('bFree').style.width = income && free > 0 ? Math.max(0, 100 - fp - sp) + '%' : '0%';
+  $('bFree').style.width = has && free > 0 ? Math.max(0, 100 - fp - sp) + '%' : '0%';
   $('lgFixed').textContent = `고정 ${Math.round(fp)}%`;
-  $('lgSave').textContent = saving && income ? `저축 ${Math.round(sp)}%` : '';
-  $('lgFree').textContent = income && free > 0 ? `자유 ${Math.round(100 - fp - sp)}%` : '';
+  $('lgSave').textContent = saving && has ? `저축 ${Math.round(sp)}%` : '';
+  $('lgFree').textContent = has && free > 0 ? `자유 ${Math.round(100 - fp - sp)}%` : '';
+
+  $('keepAmt').textContent = pool ? won(Math.max(pool - draw, 0)) : '—';
   $('rIncome').textContent = won(income);
+  $('rDraw').textContent = won(draw);
   $('rFixed').textContent = won(fixed);
-  $('eSaved').textContent = won(S.E);
+  $('rSave').textContent = won(saving);
+  $('rFree').textContent = won(free);
+  $('rN').textContent = N + '일';
+  $('rDays').textContent = days + '일';
   $('rE').textContent = won(S.E);
-  $('rest').textContent = income ? (S.rest < 0 ? won(-S.rest) + ' 초과' : won(S.rest)) : '—';
+  $('tPoolEnd').textContent = isPool ? '월말에 남는 돈 (지금까지 기준)' : '이번 달 모이는 돈 (저축 + 절약)';
+  $('rPoolEnd').textContent = won(isPool ? Math.max(pool - draw, 0) + S.E : saving + S.E);
+  $('calcNote').textContent = (isPool
+    ? '쓸 수 있는 돈 = 꺼낼 금액 − 고정 지출이에요. 월말에 남는 돈 = 모아 둔 돈 − 꺼낼 금액 + 누적 절약액이에요. '
+    : '쓸 수 있는 돈 = 이번 달 수입 − 고정 지출 − 저축 목표예요. 이번 달 모이는 돈 = 저축 목표 + 누적 절약액이에요. ')
+    + '하루 평균은 이 돈을 이번 달 전체 일수로 나눈 값이고, 오늘 쓸 수 있는 돈은 남은 돈을 남은 일수로 나눈 값에 어제까지 아낀 돈을 선택한 방식대로 이월해 계산해요. 입력한 내용은 이 기기의 브라우저에만 저장돼요.';
+  $('eSaved').textContent = won(S.E);
+  $('rest').textContent = has ? (S.rest < 0 ? won(-S.rest) + ' 초과' : won(S.rest)) : '—';
   $('rest').style.color = S.rest < 0 ? 'var(--bad)' : 'var(--ok)';
   document.querySelectorAll('#modes button').forEach(b => b.classList.toggle('on', b.dataset.m === state.mode));
   $('modeDesc').textContent = MODES[state.mode][0];
-  $('rSave').textContent = won(saving);
-  $('rFree').textContent = won(free);
-  $('rDays').textContent = days + '일';
+
+  editor($('todayEd'), key(t.getDate()), 'today');
+  renderCal(S);
+  renderDlg();
   save();
 }
 
-$('income').value = state.income;
-$('income').oninput = e => { fmtInput(e.target); state.income = e.target.value; update(); };
-$('saving').value = state.saving;
-$('saving').oninput = e => { fmtInput(e.target); state.saving = e.target.value; update(); };
+/* ---------- 이벤트 ---------- */
+[['income'], ['pool'], ['draw'], ['saving']].forEach(([id]) => {
+  $(id).value = state[id];
+  $(id).oninput = e => { fmtInput(e.target); state[id] = e.target.value; update(); };
+});
+document.querySelectorAll('#types button').forEach(b => b.onclick = () => { state.type = b.dataset.t; update(); });
 $('pct20').onclick = () => { const v = Math.round(num(state.income) * 0.2 / 1000) * 1000; state.saving = v ? v.toLocaleString('ko-KR') : ''; $('saving').value = state.saving; update(); };
-$('spent').value = num(state.spent[key(new Date().getDate())]) ? num(state.spent[key(new Date().getDate())]).toLocaleString('ko-KR') : '';
-$('spent').oninput = e => { fmtInput(e.target); state.spent[key(new Date().getDate())] = num(e.target.value); update(); };
 document.querySelectorAll('#modes button').forEach(b => b.onclick = () => { state.mode = b.dataset.m; update(); });
 $('addRow').onclick = () => { state.items.push({ name: '', amount: '' }); renderRows(); update(); };
 PRESETS.forEach(p => {
@@ -212,3 +418,4 @@ renderRows(); update();
 </script>
 </body>
 </html>
+
